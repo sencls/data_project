@@ -1,0 +1,192 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+    background: #1a1a2e;
+    color: #e0e0e0;
+    overflow: hidden;
+    height: 100vh;
+}
+
+#app { display: flex; flex-direction: column; height: 100vh; }
+
+header {
+    background: #16213e;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #0f3460;
+    flex-shrink: 0;
+}
+
+header h1 {
+    font-size: 18px;
+    color: #00d2ff;
+    font-weight: 600;
+}
+
+#sim-info { display: flex; gap: 20px; align-items: center; font-size: 14px; }
+
+#time-display {
+    font-family: 'Consolas', monospace;
+    font-size: 20px;
+    color: #00ff88;
+    font-weight: bold;
+}
+
+#tick-display { color: #aaa; }
+
+.status-running { color: #4CAF50; font-weight: bold; }
+.status-stopped { color: #f44336; font-weight: bold; }
+
+#main-content {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
+
+aside {
+    width: 280px;
+    background: #16213e;
+    overflow-y: auto;
+    border-right: 2px solid #0f3460;
+    flex-shrink: 0;
+}
+
+.panel-section {
+    padding: 12px 16px;
+    border-bottom: 1px solid #0f3460;
+}
+
+.panel-section h3 {
+    font-size: 13px;
+    color: #00d2ff;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.btn-group {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.btn-group button {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #0f3460;
+    background: #1a1a2e;
+    color: #e0e0e0;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: all 0.2s;
+}
+
+.btn-group button:hover {
+    background: #0f3460;
+    border-color: #00d2ff;
+}
+
+.speed-control { margin-top: 8px; }
+.speed-control label { font-size: 12px; color: #aaa; display: block; margin-bottom: 4px; }
+.speed-control input[type="range"] {
+    width: 100%;
+    accent-color: #00d2ff;
+}
+
+.panel-section label {
+    display: block;
+    font-size: 13px;
+    margin: 4px 0;
+    cursor: pointer;
+}
+
+.panel-section label:hover { color: #00d2ff; }
+
+.path-form { display: flex; flex-direction: column; gap: 6px; }
+.path-form input {
+    width: 100%;
+    padding: 4px 8px;
+    background: #1a1a2e;
+    border: 1px solid #0f3460;
+    color: #e0e0e0;
+    border-radius: 3px;
+    font-size: 12px;
+}
+
+.path-form button {
+    padding: 6px;
+    background: #0f3460;
+    border: 1px solid #00d2ff;
+    color: #00d2ff;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 12px;
+    margin-top: 4px;
+}
+
+.path-form button:hover { background: #00d2ff; color: #1a1a2e; }
+
+#path-results { margin-top: 8px; font-size: 12px; }
+.path-solution {
+    background: #1a1a2e;
+    border: 1px solid #0f3460;
+    border-radius: 4px;
+    padding: 8px;
+    margin-bottom: 6px;
+}
+.path-solution h4 { color: #00d2ff; font-size: 12px; margin-bottom: 4px; }
+.path-solution .metric { color: #aaa; font-size: 11px; }
+
+.stat-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 4px 0;
+    font-size: 13px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.stat-item span:last-child { color: #00ff88; font-weight: bold; font-family: monospace; }
+
+#legend { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
+.legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; }
+.dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+
+#canvas-container {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    background: #0d1117;
+}
+
+#main-canvas, #heatmap-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+#heatmap-canvas { pointer-events: none; opacity: 0.6; }
+
+#tooltip {
+    position: absolute;
+    background: rgba(22, 33, 62, 0.95);
+    border: 1px solid #00d2ff;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 12px;
+    pointer-events: none;
+    z-index: 100;
+    max-width: 200px;
+}
+
+#tooltip .tt-title { color: #00d2ff; font-weight: bold; margin-bottom: 4px; }
+#tooltip .tt-row { color: #aaa; margin: 2px 0; }
+#tooltip .tt-row span { color: #00ff88; }
+
+@media (max-width: 900px) {
+    aside { width: 220px; }
+}

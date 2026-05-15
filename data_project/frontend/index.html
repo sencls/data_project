@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>地铁站人群流动仿真系统</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div id="app">
+        <header id="header">
+            <h1>地铁站人群流动仿真</h1>
+            <div id="sim-info">
+                <span id="time-display">06:00:00</span>
+                <span id="tick-display">Tick: 0</span>
+                <span id="status-display" class="status-stopped">已停止</span>
+            </div>
+        </header>
+
+        <div id="main-content">
+            <aside id="control-panel">
+                <div class="panel-section">
+                    <h3>仿真控制</h3>
+                    <div class="btn-group">
+                        <button id="btn-start" onclick="startSim()">启动</button>
+                        <button id="btn-pause" onclick="pauseSim()">暂停</button>
+                        <button id="btn-reset" onclick="resetSim()">重置</button>
+                    </div>
+                    <div class="speed-control">
+                        <label>速度倍率: <span id="speed-val">1</span>x</label>
+                        <input type="range" id="speed-slider" min="1" max="20" value="1"
+                               oninput="setSpeed(this.value)">
+                    </div>
+                </div>
+
+                <div class="panel-section">
+                    <h3>图层控制</h3>
+                    <label><input type="checkbox" id="layer-heatmap" onchange="toggleLayer('heatmap')"> 热力图</label>
+                    <label><input type="checkbox" id="layer-paths" checked onchange="toggleLayer('paths')"> 乘客路线</label>
+                    <label><input type="checkbox" id="layer-density" checked onchange="toggleLayer('density')"> 密度指示</label>
+                </div>
+
+                <div class="panel-section">
+                    <h3>多目标路径分析</h3>
+                    <div class="path-form">
+                        <label>起点ID: <input type="number" id="path-from" value="1" min="1"></label>
+                        <label>终点ID: <input type="number" id="path-to" value="18" min="1"></label>
+                        <button onclick="analyzePaths()">分析路径</button>
+                    </div>
+                    <div id="path-results"></div>
+                </div>
+
+                <div class="panel-section">
+                    <h3>实时统计</h3>
+                    <div id="stats-panel">
+                        <div class="stat-item"><span>总生成:</span><span id="stat-total">0</span></div>
+                        <div class="stat-item"><span>已完成:</span><span id="stat-completed">0</span></div>
+                        <div class="stat-item"><span>当前活跃:</span><span id="stat-active">0</span></div>
+                        <div class="stat-item"><span>瓶颈节点:</span><span id="stat-bottleneck">-</span></div>
+                        <div class="stat-item"><span>最大拥挤度:</span><span id="stat-maxcong">0%</span></div>
+                    </div>
+                </div>
+
+                <div class="panel-section">
+                    <h3>图例</h3>
+                    <div id="legend">
+                        <div class="legend-item"><span class="dot" style="background:#4CAF50"></span> 入口</div>
+                        <div class="legend-item"><span class="dot" style="background:#FF9800"></span> 售票</div>
+                        <div class="legend-item"><span class="dot" style="background:#f44336"></span> 安检</div>
+                        <div class="legend-item"><span class="dot" style="background:#9C27B0"></span> 闸机</div>
+                        <div class="legend-item"><span class="dot" style="background:#607D8B"></span> 通道</div>
+                        <div class="legend-item"><span class="dot" style="background:#795548"></span> 楼梯</div>
+                        <div class="legend-item"><span class="dot" style="background:#FF5722"></span> 扶梯</div>
+                        <div class="legend-item"><span class="dot" style="background:#2196F3"></span> 站台</div>
+                        <div class="legend-item"><span class="dot" style="background:#E91E63"></span> 出口</div>
+                        <div class="legend-item"><span class="dot" style="background:#9E9E9E"></span> 站厅</div>
+                    </div>
+                </div>
+            </aside>
+
+            <div id="canvas-container">
+                <canvas id="main-canvas"></canvas>
+                <canvas id="heatmap-canvas"></canvas>
+                <div id="tooltip" style="display:none;"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/api.js"></script>
+    <script src="/js/renderer.js"></script>
+    <script src="/js/heatmap.js"></script>
+    <script src="/js/app.js"></script>
+</body>
+</html>
